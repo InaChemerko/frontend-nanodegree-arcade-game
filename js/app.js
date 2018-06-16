@@ -1,8 +1,11 @@
 // Enemies our player must avoid
-//define Enemy class
-//array for enemies
-let allEnemies = [];
 
+
+//assign variables
+let allEnemies = []; //assign array for enemies
+const spaceOfCollision = 50; //assign variable for checking collision
+
+//define Enemy class
 class Enemy {
     //assign variables x,y speed, sprite for enemy
     constructor (x,y, speed) {
@@ -26,19 +29,29 @@ class Enemy {
     this.x += this.speed*dt;
 }
 
+ //Check for collision, required method for game
+ /* conditon of collision from https://ru.stackoverflow.com/questions/472220/%D0%9A%D0%BE%D0%BB%D0%BB%D0%B8%D0%B7%D0%B8%D0%B8-%D0%B2-%D0%B8%D0%B3%D1%80%D0%B0%D1%85-%D0%9A%D0%B0%D0%BA-%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D1%8C-%D1%81%D1%82%D0%BE%D1%80%D0%BE%D0%BD%D1%83-%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D0%BE%D0%B9-%D0%BE%D0%B4%D0%B8%D0%BD-%D0%BA%D0%B2%D0%B0%D0%B4%D1%80%D0%B0%D1%82-%D1%81%D1%82%D0%BE%D0%BB%D0%BA%D0%BD%D1%83%D0%BB%D1%81%D1%8F-%D1%81-%D0%B4%D1%80%D1%83%D0%B3
+    if (a.position.x <= b.position.x + b.width &&
+    a.position.x + a.width >= b.position.x &&
+    a.position.y <= b.position.y + b.height &&
+    a.height + a.position.y >= b.position.y) {
+    console.log('Collision!');
+} */
+ checkCollisions(){
+if (this.x <= player.x + spaceOfCollision && this.x + spaceOfCollision >= player.x && this.y <= player.y + spaceOfCollision && spaceOfCollision + this.y >= player.y){
+    console.log("col");
+}
+ }
+
 // Draw the enemy on the screen, required method for game
     render(){
 ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
-// Check for collision enemy and player, required method for game
-    checkCollisions(){
-    if (this.x === Player.x){
-console.log("collision");
-    }
-    }
 
 }
 
+
+//define Player class
 class Player {
     //assign variables x,y, sprite for player
     constructor (x,y) {
@@ -63,37 +76,25 @@ class Player {
 
     //Move the player on screen, required method for game
     handleInput(event){
-        //check for collision enemy and player
-        //if ()
-
-
+    
         let difference = 90; //the difference of coordinates when the key is pressed
+        
         if ((event === 'left') && ((this.x - difference) >0 ) ) {
-            //console.log("left", this.x);
             this.x-=difference;
-            //console.log(this.x);
+            
         }
 
         if ((event === 'right') && ((this.x + difference) < 400)) {
-            //console.log("right", this.x);
             this.x+=difference;
-            //console.log(this.x);
-        }
+            }
 
         if ((event === 'up') && ((this.y - difference) > 0 )) {
-            //console.log("up", this.y);
             this.y-=difference;
-            //console.log(this.y);
-        }
+            }
 
         if ((event === 'down') && ((this.y + difference) < 420 )) {
-            //console.log("down", this.y);
             this.y+=difference;
-            //console.log(this.y);
-        }
-
-//check for collision enemy and player
-        //if (this.x === Enemy.x)
+            }
 
     }
 
@@ -108,8 +109,10 @@ allEnemies.push(enemyFirst);
 allEnemies.push(enemySecond);
 allEnemies.push(enemyThird);
 
-//assign instances of Enemy
+//assign instance of Player
 let player = new Player(200,410);
+
+
 /*var Enemy = function(x, y, movement) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
