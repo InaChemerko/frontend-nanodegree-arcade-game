@@ -30,6 +30,12 @@ class Enemy {
     render(){
 ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
+// Check for collision enemy and player, required method for game
+    checkCollisions(){
+    if (this.x === Player.x){
+console.log("collision");
+    }
+    }
 
 }
 
@@ -45,19 +51,53 @@ class Player {
     }
 
     update() {
-        this.x = 200;
-        this.y = 410;
+        //this.x = 200;
+        //this.y = 410;
 
     }
 
-    // Draw the player on the screen, required method for game
+   // Draw the player on the screen, required method for game
     render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    } 
+
+    //Move the player on screen, required method for game
+    handleInput(event){
+        //check for collision enemy and player
+        //if ()
+
+
+        let difference = 90; //the difference of coordinates when the key is pressed
+        if ((event === 'left') && ((this.x - difference) >0 ) ) {
+            //console.log("left", this.x);
+            this.x-=difference;
+            //console.log(this.x);
+        }
+
+        if ((event === 'right') && ((this.x + difference) < 400)) {
+            //console.log("right", this.x);
+            this.x+=difference;
+            //console.log(this.x);
+        }
+
+        if ((event === 'up') && ((this.y - difference) > 0 )) {
+            //console.log("up", this.y);
+            this.y-=difference;
+            //console.log(this.y);
+        }
+
+        if ((event === 'down') && ((this.y + difference) < 420 )) {
+            //console.log("down", this.y);
+            this.y+=difference;
+            //console.log(this.y);
+        }
+
+//check for collision enemy and player
+        //if (this.x === Enemy.x)
+
     }
 
-    handleInput(){
-
-    }
+    
 }
 
 //assign instances of Enemy
