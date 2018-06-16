@@ -16,6 +16,13 @@ class Enemy {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
     update(dt) {
+    // update x coordinate and speed when enemy goes out of canvas    
+    if (this.x > 505) {
+            this.x = 0;
+            let max = 140;
+            let min = 70;
+            this.speed = Math.floor(Math.random() * (max - min + 1)) + min;
+        }
     this.x += this.speed*dt;
 }
 
@@ -38,6 +45,8 @@ class Player {
     }
 
     update() {
+        this.x = 200;
+        this.y = 410;
 
     }
 
