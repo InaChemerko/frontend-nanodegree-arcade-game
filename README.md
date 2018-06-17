@@ -1,6 +1,24 @@
-frontend-nanodegree-arcade-game
-===============================
+# Classic Arcade Game
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+The Classic Arcade Game is a project of the Grow with Google Front-End Nanodegree Program, which contains the starter code for all Udacity students (FEND). The project allows improving **object-oriented** programming skills.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+## Instructions
+
+The user can download or clone ZIP of repository on the local machine. Open 'index.html' in a browser and start to play. Google Chrome is recommended.
+
+## Description of game
+
+* There are enemies and player.
+* The player must reach water.
+* The player must avoid enemies.
+* The player moves when one of the keys ('up', 'down', 'left', 'right') is pressed.
+* The enemies move in varying speeds on the paved block portion of the scene.
+* When the enemy and the player collided, the player moves back to the start position.
+* The player has 5 attempts to reach water.
+* The player won, when he reached water.
+
+## Start to play
+
+For starting to play the Classic Arcade game, the user should press one of the keys ('up', 'down', 'left', 'right') on the keyboard and the player starts to move. The player should reach the water and avoid enemies.
+
+
