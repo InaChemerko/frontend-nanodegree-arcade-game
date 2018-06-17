@@ -5,7 +5,8 @@
 let allEnemies = []; //assign array for enemies
 const spaceOfCollision = 50; //assign variable for checking collision
 let amountOfCollisions = 0; //assign variable for counting collision
-//assign variables for displaying modal, when the player won
+let gameOver = false; //assign variable for for checking if the game over
+//assign variables for displaying modal, when the player won or game over
 const modal = document.getElementsByClassName('modal');
 const playAgain = document.getElementById('playAgain');
 let modalHeading = document.getElementById('modal-heading');
@@ -58,6 +59,8 @@ if (amountOfCollisions === 5){
     modal[0].style.backgroundColor = '#70db70'; //change background color in modal
     player.message();
     amountOfCollisions =0;
+    //gameOver = true;
+    //console.log("gameOver", gameOver);
     
 }
 }
@@ -103,20 +106,21 @@ class Player {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     } 
 
-    //Message when the player won or not
+    //Message when the player won or game over
     message(){
         modal[0].style.display ='block';
         for(let enemy of allEnemies) {
             enemy.speed = 0;
         }
 
-    }
+        gameOver = true;
+     }
 
     //Move the player on screen, required method for game
     handleInput(event){
     
         let difference = 90; //the difference of coordinates when the key is pressed
-        
+        if (!gameOver){  //when the player won or game over, the player can not move
         if ((event === 'left') && ((this.x - difference) >0 ) ) {
             this.x-=difference;
             
@@ -133,11 +137,12 @@ class Player {
         if ((event === 'down') && ((this.y + difference) < 420 )) {
             this.y+=difference;
             }
-
+        }
         if (this.y <=50 ){
             modalHeading.innerText = 'Congratulations!'; //change header in modal
             modal[0].style.backgroundColor = '#80bbff'; //change background color in modal
             player.message();
+            
         }
     }   
 
@@ -164,6 +169,7 @@ playAgain.addEventListener('click', function (){
     enemySecond.restart(0,150,100);
     enemyThird.restart(0,230,80);
     amountOfCollisions =0;
+    gameOver = false;
 });
 
 
