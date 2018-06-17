@@ -94,7 +94,7 @@ var Engine = (function(global) {
             enemy.update(dt);
             enemy.checkCollisions(); // add function checkCollision
         });
-        player.update();
+        //player.update();
         
     }
 

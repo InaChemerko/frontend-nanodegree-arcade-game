@@ -4,6 +4,9 @@
 //assign variables
 let allEnemies = []; //assign array for enemies
 const spaceOfCollision = 50; //assign variable for checking collision
+//assign variables for displaying modal, when the player won
+const modal = document.getElementsByClassName('modal');
+const playAgain = document.getElementById('playAgain');
 
 //define Enemy class
 class Enemy {
@@ -27,6 +30,8 @@ class Enemy {
             this.speed = Math.floor(Math.random() * (max - min + 1)) + min;
         }
     this.x += this.speed*dt;
+
+    
 }
 
  //Check for collision, required method for game
@@ -40,8 +45,19 @@ class Enemy {
  checkCollisions(){
 if (this.x <= player.x + spaceOfCollision && this.x + spaceOfCollision >= player.x && this.y <= player.y + spaceOfCollision && spaceOfCollision + this.y >= player.y){
     console.log("col");
+    player.update();
 }
+
+}
+
+//reassign parameters for enemy, when the player wants to play again
+restart(x, y, speed){
+this.x = x;
+this.y = y;
+this.speed = speed;
+ 
  }
+
 
 // Draw the enemy on the screen, required method for game
     render(){
@@ -63,9 +79,10 @@ class Player {
         
     }
 
+    //Update the coordinates of the player when there was a collision
     update() {
-        //this.x = 200;
-        //this.y = 410;
+        this.x = 200;
+        this.y = 410;
 
     }
 
@@ -73,6 +90,15 @@ class Player {
     render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     } 
+
+    //Congratulations when the player won
+    congratulations(){
+        modal[0].style.display ='block';
+        for(let enemy of allEnemies) {
+            enemy.speed = 0;
+        }
+
+    }
 
     //Move the player on screen, required method for game
     handleInput(event){
@@ -96,7 +122,10 @@ class Player {
             this.y+=difference;
             }
 
-    }
+        if (this.y <=50 ){
+            player.congratulations();
+        }
+    }   
 
     
 }
@@ -112,35 +141,15 @@ allEnemies.push(enemyThird);
 //assign instance of Player
 let player = new Player(200,410);
 
+//add event listener for button "Play again"
+playAgain.addEventListener('click', function (){
+    modal[0].style.display ='none';
+    player.update();
+    enemyFirst.restart(0,65,70);
+    enemySecond.restart(0,150,100);
+    enemyThird.restart(0,230,80);
+});
 
-/*var Enemy = function(x, y, movement) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-    // variables for movement
-    this.x = x;
-    this.y = y;
-    this.movement = movement;
-
-
-}; */
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-/*Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    this.x += this.movement*dt;
-}; */
-
-// Draw the enemy on the screen, required method for game
-/*Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};*/
 
 // Now write your own player class
 // This class requires an update(), render() and

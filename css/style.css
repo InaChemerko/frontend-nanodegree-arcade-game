@@ -1,3 +1,24 @@
 body {
     text-align: center;
 }
+
+
+.modal{
+    display: none;
+    position: absolute;
+    padding: 20px;
+    width: 40%;
+    text-align: center;
+    background-color:  #80bbff;
+    border-radius: 10px;
+    margin: 0;
+    left: 30%;
+    top: 30%;
+    }
+
+ #playAgain{
+    font-weight: bolder;
+    background-color:  #b3d9ff;
+    height: 40%;
+    
+}
