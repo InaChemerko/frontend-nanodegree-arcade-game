@@ -4,9 +4,11 @@
 //assign variables
 let allEnemies = []; //assign array for enemies
 const spaceOfCollision = 50; //assign variable for checking collision
+let amountOfCollisions = 0; //assign variable for counting collision
 //assign variables for displaying modal, when the player won
 const modal = document.getElementsByClassName('modal');
 const playAgain = document.getElementById('playAgain');
+let modalHeading = document.getElementById('modal-heading');
 
 //define Enemy class
 class Enemy {
@@ -42,15 +44,25 @@ class Enemy {
     a.height + a.position.y >= b.position.y) {
     console.log('Collision!');
 } */
- checkCollisions(){
+//the player has 5 attempt to reach water
+ checkCollisions(){ 
+    if (amountOfCollisions<5) {
 if (this.x <= player.x + spaceOfCollision && this.x + spaceOfCollision >= player.x && this.y <= player.y + spaceOfCollision && spaceOfCollision + this.y >= player.y){
-    console.log("col");
     player.update();
+    amountOfCollisions++;
+    
+}
+}
+if (amountOfCollisions === 5){
+    modalHeading.innerText = 'Game over'; //change header in modal
+    modal[0].style.backgroundColor = '#70db70'; //change background color in modal
+    player.message();
+    amountOfCollisions =0;
+    
+}
 }
 
-}
-
-//reassign parameters for enemy, when the player wants to play again
+//Reassign parameters for enemy, when the player wants to play again
 restart(x, y, speed){
 this.x = x;
 this.y = y;
@@ -91,8 +103,8 @@ class Player {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     } 
 
-    //Congratulations when the player won
-    congratulations(){
+    //Message when the player won or not
+    message(){
         modal[0].style.display ='block';
         for(let enemy of allEnemies) {
             enemy.speed = 0;
@@ -123,7 +135,9 @@ class Player {
             }
 
         if (this.y <=50 ){
-            player.congratulations();
+            modalHeading.innerText = 'Congratulations!'; //change header in modal
+            modal[0].style.backgroundColor = '#80bbff'; //change background color in modal
+            player.message();
         }
     }   
 
@@ -144,10 +158,12 @@ let player = new Player(200,410);
 //add event listener for button "Play again"
 playAgain.addEventListener('click', function (){
     modal[0].style.display ='none';
+    modalHeading.innerText = '';
     player.update();
     enemyFirst.restart(0,65,70);
     enemySecond.restart(0,150,100);
     enemyThird.restart(0,230,80);
+    amountOfCollisions =0;
 });
 
 
