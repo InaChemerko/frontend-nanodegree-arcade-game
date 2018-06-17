@@ -6,6 +6,7 @@ let allEnemies = []; //assign array for enemies
 const spaceOfCollision = 50; //assign variable for checking collision
 let amountOfCollisions = 0; //assign variable for counting collision
 let gameOver = false; //assign variable for for checking if the game over
+
 //assign variables for displaying modal, when the player won or game over
 const modal = document.getElementsByClassName('modal');
 const playAgain = document.getElementById('playAgain');
@@ -51,18 +52,15 @@ class Enemy {
 if (this.x <= player.x + spaceOfCollision && this.x + spaceOfCollision >= player.x && this.y <= player.y + spaceOfCollision && spaceOfCollision + this.y >= player.y){
     player.update();
     amountOfCollisions++;
-    
+  }
 }
-}
+
 if (amountOfCollisions === 5){
     modalHeading.innerText = 'Game over'; //change header in modal
     modal[0].style.backgroundColor = '#70db70'; //change background color in modal
     player.message();
     amountOfCollisions =0;
-    //gameOver = true;
-    //console.log("gameOver", gameOver);
-    
-}
+   }
 }
 
 //Reassign parameters for enemy, when the player wants to play again
@@ -89,8 +87,8 @@ class Player {
         this.x = x;
         this.y = y;
         //The image/sprite for our player
-        //this.sprite = 'images/char-horn-girl.png';
-        this.sprite = 'images/char-boy.png';
+        this.sprite = 'images/char-horn-girl.png';
+        //this.sprite = 'images/char-boy.png';
         
     }
 
@@ -123,8 +121,7 @@ class Player {
         if (!gameOver){  //when the player won or game over, the player can not move
         if ((event === 'left') && ((this.x - difference) >0 ) ) {
             this.x-=difference;
-            
-        }
+            }
 
         if ((event === 'right') && ((this.x + difference) < 400)) {
             this.x+=difference;
@@ -142,11 +139,8 @@ class Player {
             modalHeading.innerText = 'Congratulations!'; //change header in modal
             modal[0].style.backgroundColor = '#80bbff'; //change background color in modal
             player.message();
-            
-        }
+           }
     }   
-
-    
 }
 
 //assign instances of Enemy
